@@ -184,37 +184,25 @@ and jo.job_id = 'AC_ACCOUNT';
 
 --문제8) 각 부서에 대해서 부서번호, 부서이름, 매니저의 이름, 위치한 도시, 나라의 이름, 지역구분의 이름까지 전부 출력    
 
-select  e.department_id,
-
-        d.department_name,
-
-        e.first_name,
-
-        l.city,
-
-        c.country_name,
-
-        r.region_name
-
-from    employees em,
-
-        departments de,
-
-        locations lo,
-
-        countries co,
-
-        regions re
-
-where   e.employee_id = d.manager_id 
-
-and     e.department_id = d.department_id
-
-and     d.location_id = l.location_id
-
-and     l.country_id = c.country_id
-
-and     c.region_id = r.region_id;
+select  dep.department_id as "부서번호",
+        dep.department_name as "부서이름",
+        emp.first_name as "매니저이름",
+        loc.city as "위치한도시",
+        cou.country_name as "나라",
+        reg.region_name as "지역명"
+        
+from    departments dep,
+	     employees emp,
+	     locations loc,
+	     countries cou,
+	     regions reg
+	     
+where dep.manager_id = emp.employee_id
+  and dep.location_id = loc.location_id
+  and loc.country_id = cou.country_id
+  and cou.region_id = reg.region_id
+  
+order by dep.department_id asc;    
 
  
 
